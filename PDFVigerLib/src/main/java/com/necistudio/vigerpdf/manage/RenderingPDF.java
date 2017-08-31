@@ -40,6 +40,7 @@ public class RenderingPDF {
     private File file;
     private Context context;
     private int pageCount, type;
+    private int renderScale = 1;
     private boolean status = false;
     private CompositeDisposable disposable = new CompositeDisposable();
 
@@ -47,6 +48,15 @@ public class RenderingPDF {
         this.file = file;
         this.context = context;
         this.type = type;
+        disposable.clear();
+        initRun();
+    }
+
+    public RenderingPDF(Context context, File file, int type, int renderScale) {
+        this.file = file;
+        this.context = context;
+        this.type = type;
+        this.renderScale = renderScale;
         disposable.clear();
         initRun();
     }
@@ -66,7 +76,7 @@ public class RenderingPDF {
                         }
                         CodecPage page = decodeService.getPage(i);
                         RectF rectF = new RectF(0, 0, 1, 1);
-                        Bitmap bitmap = page.renderBitmap(decodeService.getPageWidth(i), decodeService.getPageHeight(i), rectF);
+                        Bitmap bitmap = page.renderBitmap(decodeService.getPageWidth(i) * renderScale, decodeService.getPageHeight(i) * renderScale, rectF);
                         e.onNext(bitmap);
                     }
                     if (type == 1) {

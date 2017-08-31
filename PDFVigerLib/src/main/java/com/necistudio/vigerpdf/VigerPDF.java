@@ -57,4 +57,9 @@ public class VigerPDF {
         onResultListener = resultListener;
         renderingPDF = new RenderingPDF(context, file, 0);
     }
+
+    public void initFromFile(File file, int renderScale, OnResultListener resultListener) {
+        onResultListener = resultListener;
+        renderingPDF = new RenderingPDF(context, file, 0, renderScale);
+    }
 }
